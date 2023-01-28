@@ -7,7 +7,8 @@ import { createNamespace } from '../utils'
 const [bem] = createNamespace('cell-group')
 
 const CellGroup: React.FC<CellGroupProps> = props => {
-  const { title, border, inset: insetP, card } = props
+  const cellGroupProps: CellGroupProps = { border: true, ...props }
+  const { title, border, inset: insetP, card } = cellGroupProps
   const inset = card || insetP
 
   const renderGroup = () => (
@@ -16,7 +17,7 @@ const CellGroup: React.FC<CellGroupProps> = props => {
         [BORDER_TOP_BOTTOM]: !inset && border,
       })}
     >
-      {props.children}
+      {cellGroupProps.children}
     </div>
   )
 
@@ -26,15 +27,11 @@ const CellGroup: React.FC<CellGroupProps> = props => {
   }
 
   return (
-    <div className={props.className} style={props.style}>
+    <div className={cellGroupProps.className} style={cellGroupProps.style}>
       {renderTitle()}
       {renderGroup()}
     </div>
   )
-}
-
-CellGroup.defaultProps = {
-  border: true,
 }
 
 export default CellGroup
